@@ -25,11 +25,12 @@ public class BinaryQuestionTree extends Fragment {
     private QuestionNode root;
     TextView questionText;
     private QuestionNode current;
-
+    private int counter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        counter = 0;
         View view = inflater.inflate(R.layout.questiontext,container,false);
         questionText = (TextView) view.findViewById(R.id.Question);
         return view;
@@ -69,19 +70,23 @@ public class BinaryQuestionTree extends Fragment {
         }
     }
 
-    public void moveNodeLeft() {
-        if(current.yes == null){
+   public void moveNodeLeft() {
+        counter++;
+        if(current.yes == null || counter == 20){
             current = root;
             questionText.setText("I win!!!");
+            counter = 0;
         } else {
             current = current.yes;
             setDisplay();
         }
     }
     public void moveNodeRight() {
-        if (current.no == null){
+        counter++;
+        if (current.no == null || counter == 20){
             current = root;
             questionText.setText("I don't have the answer you win!!!");
+            counter = 0;
         } else {
             current = current.no;
             setDisplay();
